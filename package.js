@@ -10,10 +10,10 @@ Package.describe({
 Package.onUse(function (api) {
 
   api.use([
-    'aldeed:simple-schema',
-    'less',
-    'http',
-    'underscore'
+    'aldeed:simple-schema@1.3.3',
+    'less@1.0.14',
+    'http@1.1.0',
+    'underscore@1.0.3'
   ], ['client', 'server']);
 
   api.addFiles([
