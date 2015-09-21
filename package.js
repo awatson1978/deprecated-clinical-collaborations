@@ -11,14 +11,14 @@ Package.onUse(function (api) {
 
   api.use([
     'meteor-platform@1.0.4',
-    'accounts-base',
+    'accounts-base@1.2.0',
     'aldeed:simple-schema@1.3.3',
     'aldeed:collection2@2.5.0',
     'less@1.0.14',
     'http@1.1.0',
     'underscore@1.0.3',
     'clinical:verification@3.0.0',
-    'yasaricli:slugify'
+    'yasaricli:slugify@0.0.7'
   ], ['client', 'server']);
 
   api.addFiles([
