@@ -10,10 +10,15 @@ Package.describe({
 Package.onUse(function (api) {
 
   api.use([
+    'meteor-platform@1.0.4',
+    'accounts-base',
     'aldeed:simple-schema@1.3.3',
+    'aldeed:collection2@2.5.0',
     'less@1.0.14',
     'http@1.1.0',
-    'underscore@1.0.3'
+    'underscore@1.0.3',
+    'clinical:verification@3.0.0',
+    'yasaricli:slugify'
   ], ['client', 'server']);
 
   api.addFiles([
@@ -30,7 +35,6 @@ Package.onUse(function (api) {
   api.addFiles([
     'server/accounts.js',
     'server/helpers.js',
-    'server/http.js',
     'server/methods.js',
     'server/publications.js'
   ], ['server']);
@@ -42,4 +46,15 @@ Package.onUse(function (api) {
     'Collaboration',
     'User'
   ]);
+});
+
+
+
+
+Package.onTest(function (api) {
+  api.use('tinytest');
+  api.use('clinical:verification');
+  api.use('clinical:collaborations');
+
+  api.addFiles('tests/collaborations.js');
 });
