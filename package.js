@@ -1,7 +1,7 @@
 
 Package.describe({
   name: 'clinical:collaborations',
-  version: '1.1.0',
+  version: '1.1.1',
   summary: 'Collaboration based security architecture (similar to Roles and Friends)',
   git: 'https://github.com/UCSC-MedBook/MedBook-Telescope/tree/master/packages/clinical-collaborations',
   documentation: 'README.md'

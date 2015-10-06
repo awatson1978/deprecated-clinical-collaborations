@@ -8,10 +8,12 @@ Meteor.methods({
 
     if (Meteor.user()){
       collaboration.slug = slugify(collaboration.name);
-      Collaborations.insert(collaboration);
-      return collaboration.name;
+      return Collaborations.insert(collaboration);
+      // return collaboration.name;
     } else {
-      throw new Meteor.Error(i18n.t('You need to login to add a new collaboration.'));
+      // throw new Meteor.Error(i18n.t('You need to login to add a new collaboration.'));
+      // throw new Meteor.Error('You need to login to add a new collaboration.');
+      return 'You need to login to add a new collaboration.';
     }
 
   },
