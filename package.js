@@ -8,9 +8,11 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-
+  api.versionsFrom('1.0.4');
   api.use([
-    'meteor-platform@1.0.4',
+    'mongo@1.1.0',
+    'mongo-livedata@1.0.8',
+    'minimongo@1.0.8',
     'accounts-base@1.2.0',
     'aldeed:simple-schema@1.3.3',
     'aldeed:collection2@2.5.0',
