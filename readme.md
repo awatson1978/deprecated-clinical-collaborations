@@ -1,7 +1,7 @@
 clinical:collaborations
 ======================================
 
-Collaboration based security architecture (similar to Roles and Friends)
+Collaboration based security architecture (similar to Roles and Friends).
 
 ========================================
 #### Installation  
