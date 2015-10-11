@@ -2,7 +2,7 @@
 
 
 Meteor.methods({
-  // createCollaborationMethod
+  // collaboration/create
   'collaboration/create': function ( collaboration ){
     console.log('collaboration/create', collaboration);
 
@@ -17,7 +17,7 @@ Meteor.methods({
     }
 
   },
-  // joinCollaborationMethod
+  // collaboration/join
   'collaboration/join': function ( collaborationId ) {
     var me = moi.call(this);
 
@@ -33,12 +33,14 @@ Meteor.methods({
   },
   // applyCollaborationMethod
   'collaboration/apply': function ( collaborationId ) {
+    console.log('collaboration/apply');
     var cols = moi.call(this);
+    console.log('cols', cols);
     Collaborations.update({_id: collaborationId }, { $addToSet: { requests:{$each: cols} }}, function (err, err2){
 
     });
   },
-  // leaveCollaborationMethod
+  // collaboration/leave
   'collaboration/leave': function ( collaborationId ) {
     var cols = moi.call(this);
     Collaborations.update({_id: collaborationId }, { $pull: { collaborators: {$in: cols}, administrators: {$in: cols }}}, function (err, err2){

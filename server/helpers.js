@@ -1,11 +1,10 @@
-
-MedBookPost = function(post,userId) {
+MedBookPost = function (post, userId) {
   // ------------------------------ Properties ------------------------------ //
 
   // Basic Properties
 
   //console.log("MedBookPost()", userId, post);
-  if (userId == null){
+  if (userId == null) {
     return null;
   }
 
@@ -14,47 +13,67 @@ MedBookPost = function(post,userId) {
   post._id = Posts.insert(post);
 
   // ------------------------------ MedBook Post Files ----------------------- //
-  if (post.blobs && post.blobs.length >0)
-      for (var i = 0; i < post.blobs.length; i++)  {
-          var fid = post.blobs[i];
-          FileUploadCollection.update({"_id": new Meteor.Collection.ObjectID(fid)}, { "$set" : { "postId" : post._id } }, function (err, response) {
-        	console.log('update returns err', err, 'response', response)
-        })
-      }
+  if (post.blobs && post.blobs.length > 0)
+    for (var i = 0; i < post.blobs.length; i++) {
+      var fid = post.blobs[i];
+      FileUploadCollection.update({
+        "_id": new Meteor.Collection.ObjectID(fid)
+      }, {
+        "$set": {
+          "postId": post._id
+        }
+      }, function (err, response) {
+        console.log('update returns err', err, 'response', response)
+      })
+    }
 
 
   // ------------------------------ Callbacks ------------------------------ //
 
   // run all post submit server callbacks on post object successively
-  post = postAfterSubmitMethodCallbacks.reduce(function(result, currentFunction) {
-      return currentFunction(result);
+  post = postAfterSubmitMethodCallbacks.reduce(function (result, currentFunction) {
+    return currentFunction(result);
   }, post);
 
   // ------------------------------ Post-Insert ------------------------------ //
 
   // increment posts count
-  Meteor.users.update({_id: userId}, {$inc: {postCount: 1}});
-  var postAuthor =  Meteor.users.findOne({_id:post.userId});
+  Meteor.users.update({
+    _id: userId
+  }, {
+    $inc: {
+      postCount: 1
+    }
+  });
+  var postAuthor = Meteor.users.findOne({
+    _id: post.userId
+  });
   Meteor.call('upvotePost', post, postAuthor);
   return post._id;
 };
 
-moi = function() {
-    var user;
-    if (Meteor.isClient)
-        user = Meteor.user();
-    else
-        user = Meteor.users.findOne({_id: this.userId});
-    var cols = [];
-    if (user) {
-        cols.push(user.username);
-        _.map( getEmails(), function(em) { cols.push(em);});
-    }
+moi = function () {
+  var user;
+  if (Meteor.isClient) {
+    user = Meteor.user();
+  } else {
+    user = Meteor.users.findOne({
+      _id: this.userId
+    });
+  }
 
-    return cols;
-}
+  var collaborators = [];
+  if (user.username) {
+    collaborators.push(user.username);
+  }
+  if (user) {
+    user.getEmails().forEach(function (address) {
+      collaborators.push(address);
+    });
+  }
 
-
+  return collaborators;
+};
 
 
 
